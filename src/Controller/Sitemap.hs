@@ -5,16 +5,7 @@
 module Controller.Sitemap where
 
 import Prelude hiding (id,(.))
-import Control.Applicative ((<$>),(<|>))
-import Control.Monad.Trans  (lift,liftIO)
-import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.Encoding as T
-import Control.Category (id,(.))
-import Snap.Core
-import Text.Boomerang.TH (makeBoomerangs)
-import Text.Boomerang.Texts (unparseTexts)
-import Web.Routes.Boomerang ((<>),(</>),integer,anyText,boomerangSiteRouteT)
+import Controller.Import
 
 data Sitemap 
   = HomeR
@@ -39,10 +30,10 @@ sitemap =  rHomeR
                     )
 
 redirectSM :: MonadSnap m => Sitemap -> m ()
-redirectSM = redirect . T.encodeUtf8 . showUrl
+redirectSM = redirect . encodeUtf8 . showUrl
 
 showUrl :: Sitemap -> Text
 showUrl route = case unparseTexts sitemap route of
-  Just [] -> T.pack "/"
-  Just s  -> T.intercalate (T.pack "/") s
-  _ -> T.pack "/InvalidRoute"
+  Just [] -> pack "/"
+  Just s  -> intercalate (pack "/") s
+  _ -> pack "/InvalidRoute"

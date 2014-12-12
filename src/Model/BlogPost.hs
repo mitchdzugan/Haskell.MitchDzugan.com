@@ -4,12 +4,7 @@
 
 module Model.BlogPost (BlogPost(..), PostId,) where
 
-import Data.Data            (Data, Typeable)
-import Data.Text            (Text)
-import System.Environment
-import Data.IxSet
-import Data.SafeCopy
-import Data.Time
+import Model.Import
 
 data BlogPost = BlogPost
     { postId 	:: Integer 
