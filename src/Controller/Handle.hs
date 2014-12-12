@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeOperators #-}
 
-module Controller.Routes where
+module Controller.Handle where
 
 import Controller.Sitemap
 
@@ -18,7 +18,6 @@ import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Control.Category (id,(.))
 import Snap.Core
-import Text.Boomerang.TH (makeBoomerangs)
 import Snap.Snaplet.Heist (render, heistLocal)
 import Heist.Interpreted (bindString)
 
@@ -37,29 +36,10 @@ handle url = lift $
     LoginR -> with auth handleLoginSubmit
     LogoutR -> with auth handleLogout
     RegisterR -> with auth handleNewUser
-    BlogR -> with auth $ currentUser >>= (writeText . T.pack . show)
+    BlogR -> writeText $ showUrl $ ViewBlogPostR 37 "lol"
+    NewBlogPostR -> render "_view/index"
     ViewBlogPostR ind title -> writeText $ "Post: #" `T.append` title
-
-
-{- TODO: Make these functions not depend on Sitemap, sitemap, and handle -}
-redirectSM :: MonadSnap m => Sitemap -> m ()
-redirectSM = redirect . T.encodeUtf8 . showUrl
-
-site :: Site Sitemap (AppHandler ())
-site = boomerangSiteRouteT handle sitemap
-
-showUrl :: Sitemap -> Text
-showUrl sm = 
-  let url = (uncurry encodePathInfo . formatPathSegments site) sm in
-  if (T.null url) || (T.head url /= '/')
-    then T.cons '/' url
-    else url
-
-mkRoute :: AppHandler ()
-mkRoute = do
-  pps <- (decodePathInfo . B.dropWhile (== '/') . rqPathInfo) <$> getRequest
-  either (const pass) id $ runSite "" site pps
-{----------------------------------------------------------------------- -}
+    EditBlogPostR ind title -> writeText $ "Post: #" `T.append` title
 
   -- | Render login form
 handleLogin :: Maybe T.Text -> Handler App (AuthManager App) ()
