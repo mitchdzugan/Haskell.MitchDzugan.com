@@ -13,7 +13,7 @@
   </ifLoggedIn>
 
   <ifLoggedOut>
-    <apply template="_login"/>
+    <apply template="login_form"/>
   </ifLoggedOut>
 
 </apply>

@@ -38,7 +38,10 @@ Executable MitchDzugancom
     ixset,
     safecopy,
     snaplet-sqlite-simple,
-    snaplet-acid-state
+    snaplet-acid-state,
+    web-routes,
+    boomerang,
+    web-routes-boomerang
 
   if flag(old-base)
     build-depends:
