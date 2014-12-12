@@ -18,5 +18,5 @@ handle url = lift $
     RegisterR -> with auth handleNewUser
     BlogR -> writeText $ showUrl $ ViewBlogPostR 37 "lol"
     NewBlogPostR -> render "_view/index"
-    ViewBlogPostR ind title -> writeText $ "Post: #" `append` title
-    EditBlogPostR ind title -> writeText $ "Post: #" `append` title
+    ViewBlogPostR ind title -> writeText $ "From View: Post: #" `append` title
+    EditBlogPostR ind title -> writeText $ "From Edit: Post: #" `append` title
