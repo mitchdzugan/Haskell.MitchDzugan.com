@@ -14,7 +14,7 @@ import Snap.Snaplet.Session
 import Snap.Snaplet.SqliteSimple
 import Snap.Snaplet.AcidState
 
-import Models.Blog
+import Model.Blog
 
 ------------------------------------------------------------------------------
 data App = App

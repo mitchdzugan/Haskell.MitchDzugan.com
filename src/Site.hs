@@ -25,8 +25,8 @@ import           Heist
 import qualified Heist.Interpreted as I
 ------------------------------------------------------------------------------
 import           Application
-import           Models.Blog
-import           Sitemap
+import           Controller.Routes
+import           Model.Blog
 ------------------------------------------------------------------------------
 -- | The application's routes.
 routes :: [(ByteString, Handler App App ())]
